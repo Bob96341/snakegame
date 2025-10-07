@@ -3,7 +3,7 @@ SnakeSegment::SnakeSegment(sf::Vector2f position) : position(position), nextSegm
 	shape.setSize(sf::Vector2f(20.f, 20.f));
 	shape.setFillColor(sf::Color::Green);
 	shape.setPosition(position);
-	shape.setOrigin(shape.getSize() / 2.f);
+	//shape.setOrigin(shape.getSize() / 2.f);
 }
 sf::Vector2f SnakeSegment::getPosition() const {
 	return position;

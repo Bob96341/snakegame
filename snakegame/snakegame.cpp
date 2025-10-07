@@ -4,7 +4,6 @@
 #include "game.h"
 
 int main(){
-    
     std::cout << "Hi\n";
 	Game game;
 	game.run();

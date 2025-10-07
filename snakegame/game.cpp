@@ -1,6 +1,6 @@
 #include "game.h"
 #include <iostream>
-Game::Game() : window(sf::VideoMode({ 800, 600 }), "Snake Game"), player(sf::Vector2f(400.f, 300.f), 20.f, sf::Vector2f(-1.f, 0.f)), isRunning(true), gameSpeed(200), deltaTime(0), totalTime(0), fpsCounter(){
+Game::Game() : window(sf::VideoMode({ 800, 600 }), "Snake Game", sf::Style::Close), player(sf::Vector2f(400.f, 300.f), 20.f, sf::Vector2f(-1.f, 0.f)), isRunning(true), gameSpeed(200), deltaTime(0), totalTime(0), fpsCounter(){
 	window.setFramerateLimit(60);
 }
 void Game::wait(float time) {

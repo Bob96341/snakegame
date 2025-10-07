@@ -4,7 +4,7 @@ Player::Player() : position(0.f, 0.f), speed(20.f), goal(-1.f, 0.f), head(new Sn
 	shape.setSize(sf::Vector2f(20.f, 20.f));
 	shape.setFillColor(sf::Color::Yellow);
 	shape.setPosition(position);
-	shape.setOrigin(shape.getSize() / 2.f);
+	//shape.setOrigin(shape.getSize() / 2.f);
 	head->setShape(shape); 
 	head->setPreviousSegment(head);
 }
@@ -13,7 +13,7 @@ Player::Player(sf::Vector2f position, float speed, sf::Vector2f goal) : position
 	shape.setSize(sf::Vector2f(20.f, 20.f));
 	shape.setFillColor(sf::Color::Yellow);
 	shape.setPosition(position);
-	shape.setOrigin(shape.getSize() / 2.f);
+	//shape.setOrigin(shape.getSize() / 2.f);
 	head->setShape(shape);
 	head->setPreviousSegment(head);
 }
@@ -80,9 +80,10 @@ void Player::draw(sf::RenderWindow& window) {
 }
 bool Player::checkCollision() const {
 	SnakeSegment* current = head->getNextSegment();
-	for (; current; current = current->getNextSegment()) 
-		if (head->getPosition() == current->getPosition())
+	for (; current; current = current->getNextSegment()) {
+		if (head->getPosition() == current->getPosition() || head->getPosition().x >= 800 || head->getPosition().x < 0 || head->getPosition().y >= 600 || head->getPosition().y < 0)
 			return true;
+	}
 	return false;
 }
 bool Player::update() {
