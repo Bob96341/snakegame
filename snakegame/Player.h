@@ -9,8 +9,10 @@ private:
 	sf::Vector2f position;
 	float speed;
 	sf::Vector2f goal;
+	sf::Vector2f prevgoal;
 	SnakeSegment* head;
 	bool s;
+	bool dead;
 
 public:
 	Player();

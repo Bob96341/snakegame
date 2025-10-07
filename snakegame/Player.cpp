@@ -1,17 +1,17 @@
 #include "Player.h"
-Player::Player() : position(0.f, 0.f), speed(20.f), goal(-1.f, 0.f), head(new SnakeSegment(position)), s(false) { 
+Player::Player() : position(0.f, 0.f), speed(20.f), goal(-1.f, 0.f), head(new SnakeSegment(position)), s(false), dead(false), prevgoal(goal) { 
 	sf::RectangleShape shape;
 	shape.setSize(sf::Vector2f(20.f, 20.f));
-	shape.setFillColor(sf::Color::Red);
+	shape.setFillColor(sf::Color::Yellow);
 	shape.setPosition(position);
 	shape.setOrigin(shape.getSize() / 2.f);
 	head->setShape(shape); 
 	head->setPreviousSegment(head);
 }
-Player::Player(sf::Vector2f position, float speed, sf::Vector2f goal) : position(position), speed(speed), goal(goal), head(new SnakeSegment(position)), s(false) {
+Player::Player(sf::Vector2f position, float speed, sf::Vector2f goal) : position(position), speed(speed), goal(goal), head(new SnakeSegment(position)), s(false), dead(false), prevgoal(goal){
 	sf::RectangleShape shape;
 	shape.setSize(sf::Vector2f(20.f, 20.f));
-	shape.setFillColor(sf::Color::Red);
+	shape.setFillColor(sf::Color::Yellow);
 	shape.setPosition(position);
 	shape.setOrigin(shape.getSize() / 2.f);
 	head->setShape(shape);
@@ -43,16 +43,16 @@ void Player::addSegment(sf::Vector2f position) {
 void Player::handleInput(int dir) {
 	switch (dir) {
 		case 0: // up
-			goal = sf::Vector2f(0.f, -1.f);
+			goal = prevgoal == sf::Vector2f(0.f, 1.f) ? goal : sf::Vector2f(0.f, -1.f);
 			break;
 		case 1: // down
-			goal = sf::Vector2f(0.f, 1.f);
+			goal = prevgoal == sf::Vector2f(0.f, -1.f) ? goal : sf::Vector2f(0.f, 1.f);
 			break;
 		case 2: // left
-			goal = sf::Vector2f(-1.f, 0.f);
+			goal = prevgoal == sf::Vector2f(1.f, 0.f) ? goal : sf::Vector2f(-1.f, 0.f);
 			break;
 		case 3: // right
-			goal = sf::Vector2f(1.f, 0.f);
+			goal = prevgoal == sf::Vector2f(-1.f, 0.f) ? goal : sf::Vector2f(1.f, 0.f);
 			break;
 		case 4:
 			s = true;
@@ -86,14 +86,18 @@ bool Player::checkCollision() const {
 	return false;
 }
 bool Player::update() {
+	if (dead) return false;
 	position += goal * speed;
 	sf::Vector2f oldposition = head->getPreviousSegment()->getPosition();
 	move();
-	if (checkCollision())
+	if (checkCollision()) {
+		dead = true;
 		return false;
+	}
 	if (s) {
 		s = false;
 		addSegment(oldposition);
 	}
+	prevgoal = goal;
 	return true;
 }

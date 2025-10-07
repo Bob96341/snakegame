@@ -10,7 +10,6 @@ private:
 	sf::RectangleShape shape;
 	SnakeSegment* nextSegment;
 	SnakeSegment* previousSegment;
-	//bool isHead;
 public:
 	SnakeSegment(sf::Vector2f position);
 	sf::Vector2f getPosition() const;
@@ -23,8 +22,6 @@ public:
 	sf::RectangleShape getShape() const;
 	void update(sf::Vector2f newPosition);
 	void draw(sf::RenderWindow& window);
-	//bool getIsHead() const;
-	//void setIsHead(bool head);
 };
 
 #endif

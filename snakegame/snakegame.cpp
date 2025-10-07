@@ -5,7 +5,7 @@
 
 int main(){
     
-    std::cout << "Hello World!\n";
+    std::cout << "Hi\n";
 	Game game;
 	game.run();
 	return 0;
