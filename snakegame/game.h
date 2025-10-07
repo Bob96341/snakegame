@@ -8,6 +8,12 @@
 #include <SFML/Window.hpp>
 #include "Player.h"
 #include "fpscounter.h"
+#include <vector>
+
+typedef struct food {
+	sf::Vector2f position;
+	sf::CircleShape shape;
+} Food;
 
 class Game {
 private:
@@ -18,6 +24,9 @@ private:
 	double gameSpeed;
 	FPSCounter fpsCounter;
 	Player player;
+	Food food[5];
+	std::vector<sf::Vector2f> freePositions;
+	void updateFreePositions();
 	bool isRunning;
 	void processEvents();
 	void update();
